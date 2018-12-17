@@ -1,0 +1,5 @@
+HOW TO RUN WEBSITE:
+-"npm i" this installs all the packages you need
+-"npm start" starts website
+-Go to localhost:8080 to load
+

@@ -1,0 +1,38 @@
+{
+  "name": "woof_web",
+  "version": "1.0.0",
+  "description": "Google Drive, but your data belongs to you.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --hot",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emanmcdow1/woof_web.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emanmcdow1/woof_web/issues"
+  },
+  "homepage": "https://github.com/emanmcdow1/woof_web#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.4",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.27.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.10"
+  },
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0"
+  }
+}
