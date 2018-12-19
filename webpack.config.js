@@ -13,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
@@ -21,13 +21,21 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [{loader: 'style-loader'}, {loader: "css-loader", options: {modules: true}}]
+      },
+      {
+        test: /\.less/,
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'less-loader', options: { javascriptEnabled: true } }]
       },
       {
         test: /\.(png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000'
       }
     ]
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.less', '.css'],
+    modules: ['node_modules']
   },
   devServer: {
     port: 3000,
