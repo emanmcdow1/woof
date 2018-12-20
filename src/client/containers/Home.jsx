@@ -12,14 +12,9 @@ class Home extends Component {
             <div className={styles.home}>
                 <div className={styles.center}>
                     <h1>
-                        Woof
+                        Davidson Poole
                     </h1>
-                    <Button type="primary" onClick={() => alert('Login')}>
-                        Login
-                    </Button>
-                    <Button type="primary" onClick={() => alert('Register')}>
-                        Register
-                    </Button>
+                    <h5>Website Architect, Musician, and Caring Friend</h5>
                 </div>
             </div>
         );

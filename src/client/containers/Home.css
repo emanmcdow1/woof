@@ -7,6 +7,24 @@
 
 .center {
     display: table-cell;
-    vertical-align: middle;
     margin: 0 auto;
+}
+.button {
+    width: 200px;
+    height: 40px;
+    background-color: black;
+    border-radius: 50px;
+}
+
+.spacing {
+    height: 5px;
+}
+h1 {
+    font-size: 40px;
+    margin-bottom: 0px;
+    margin-top: 50px;
+
+}
+h5 {
+    border-bottom: 1px solid black;
 }
