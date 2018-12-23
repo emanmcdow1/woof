@@ -8,6 +8,7 @@
 .center {
     display: table-cell;
     margin: 0 auto;
+    vertical-align: middle;
 }
 .button {
     width: 200px;
@@ -21,10 +22,6 @@
 }
 h1 {
     font-size: 40px;
-    margin-bottom: 0px;
-    margin-top: 50px;
+    margin-bottom: 40px;
 
-}
-h5 {
-    border-bottom: 1px solid black;
 }
