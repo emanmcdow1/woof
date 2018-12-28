@@ -28,7 +28,7 @@ module.exports = {
         use: [{ loader: 'style-loader' }, { loader: 'css-loader' }, { loader: 'less-loader', options: { javascriptEnabled: true } }]
       },
       {
-        test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+        test: /\.(jpe?g|gif|png|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000'
       }
     ]
