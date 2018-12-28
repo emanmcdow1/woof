@@ -15,7 +15,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader']
+        loader: 'babel-loader'
       },
       {
         test: /\.css$/,
@@ -36,11 +36,9 @@ module.exports = {
     modules: ['node_modules']
   },
   devServer: {
-    port: 3000,
-    open: true,
-    proxy: {
-      '/api': 'http://localhost:8080'
-    }
+    contentBase: 'public',
+    hot: true,
+    historyApiFallback: true
   },
   plugins: [
     new CleanWebpackPlugin([outputDirectory]),

@@ -16,8 +16,6 @@ class Home extends Component {
         this.emailInput = React.createRef();
         this.passwordInput = React.createRef();
         this.confPassInput = React.createRef();
-        this.logIn = this.logIn.bind(this);
-        this.register = this.register.bind(this);
     }
 
     login() {
@@ -155,7 +153,7 @@ class Home extends Component {
                         </Col>
                             ) : null }
                         <Col>
-                            <Button className={styles.button} onClick={() => alert("login")}>{ register ? 'Register' : 'Login' }</Button>
+                            <Button className={styles.button} onClick={register ? this.register : this.logIn }>{ register ? 'Register' : 'Login' }</Button>
                         </Col>
                     </Row>
                     <br />
