@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input, Select, Row, Col } from 'antd';
+import { Button, Input, Select, Row, Col, message } from 'antd';
 import styles from './Home.css'
 
 const { Option } = Select;
@@ -16,6 +16,78 @@ class Home extends Component {
         this.emailInput = React.createRef();
         this.passwordInput = React.createRef();
         this.confPassInput = React.createRef();
+        this.logIn = this.logIn.bind(this);
+        this.register = this.register.bind(this);
+    }
+
+    login() {
+        const { register } = this.state;
+        const email = this.emailInput.current.input.value;
+        const password = this.passwordInput.current.input.value;
+        if (username && password) {
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( {
+                    email,
+                    password
+                })
+            })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.success) {
+                        if (!register) message.success('Logged in successfully');
+                        const date = new Date((new Date()).getTime() + (60 * 60 * 1000));
+                        document.cookie = 'session=user:${JSON.stringify(json.user)};expires=${date.toUTCString()};path=/';
+                        const { onLogin } = this.props;
+                        onLogin();
+                    } else {
+                        message.error(json.msg);
+                    }
+                })
+                .catch(console.error);
+        }
+    }
+
+    register() {
+        const firstName = this.firstNameInput.current.input.value;
+        const lastName = this.lastNameInput.current.input.value;
+        const name = '${firstName} ${lastName}'
+        const email = this.emailInput.current.input.value;
+        const password = this.passwordInput.current.input.value;
+        const confPass = this.confPassInput.current.input.value;
+
+        if (password === confPass) {
+            if (firstName && lastName && email && password) {
+            const body = {
+                email,
+                password,
+                name
+            };
+            console.log(body);
+            fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+                .then(res => res.json())
+                .then(json => {
+                    if (json.success) {
+                        message.success('Registered successfully');
+                        this.login();
+                    } else {
+                        message.error(json.msg);
+                    }
+                })
+                .catch(console.error);
+            }
+        }
     }
 
     render() {
@@ -54,7 +126,15 @@ class Home extends Component {
                     <br />
                     <Row type="flex" justify="center">
                         <Col>
-                            <Input className={styles.input} ref={this.passwordInput} placeholder="Password" type="password"/>
+                            <Input
+                                className={styles.input}
+                                ref={this.passwordInput}
+                                placeholder="Password"
+                                type="password"
+                                onKeyPress= { !register ? ((e) => {
+                                    if (e.key === "Enter") { alert("login") };
+                                }) : null }
+                            />
                         </Col>
                     </Row>
                     <br />
@@ -69,6 +149,11 @@ class Home extends Component {
                         </div>
                         ) : null }
                     <Row type="flex" justify="center">
+                        { register ? (
+                        <Col>
+                            <Button className={styles.button} style={{ marginRight: 15 }} onClick={ () => this.setState({ register: false })}>Cancel</Button>
+                        </Col>
+                            ) : null }
                         <Col>
                             <Button className={styles.button} onClick={() => alert("login")}>{ register ? 'Register' : 'Login' }</Button>
                         </Col>
