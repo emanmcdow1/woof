@@ -1,12 +1,12 @@
 const path = require('path');
-const api = require('./api');
+const User = require('./models/user');
+const userController = require('./controllers').users;
 
-module.exports = function routes(app) {
-    app.post('api/login', api.logIn);
-    app.post('api/register', api.register);
+//*** Routes ***//
+app.route('/api/login', sessionChecker, (req,res) => {
 
-    app.get('/*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../../public/index.html'))
-    });
-};
+});
 
+app.route('/api/register', sessionChecker, (req,res) => {
+
+});

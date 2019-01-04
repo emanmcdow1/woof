@@ -10,7 +10,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
 //*** Middleware ***//
-app.use(cors({origin: 'http://localhost:3000'}));/////////////////////////////////////////////////////
+app.use(cors({origin: 'http://localhost:8080'}));/////////////////////////////////////////////////////
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
@@ -45,15 +45,8 @@ var sessionChecker = (req, res, next) => {
         next();
     }
 };
-
-//*** Routes ***//
-app.route('/api/login', sessionChecker, (req,res) => {
-
-});
-
-app.route('/api/register', sessionChecker, (req,res) => {
-
-});
+//*** add routes ***//
+require('./routes')(app);
 
 //*** Server Start ***///
 app.listen(PORT, error => {
