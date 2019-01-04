@@ -7,7 +7,7 @@ const User = require('./models/user');
 const app = express();
 const cors = require('cors');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 //*** Middleware ***//
 app.use(cors({origin: 'http://localhost:3000'}));/////////////////////////////////////////////////////
