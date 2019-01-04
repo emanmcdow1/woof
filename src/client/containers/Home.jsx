@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input, Select, Row, Col, message } from 'antd';
-import styles from './Home.css'
+import styles from './Home.css';
+const axios = require('axios');
 
 const { Option } = Select;
 
@@ -53,7 +54,6 @@ class Home extends Component {
     register() {
         const firstName = this.firstNameInput.current.input.value;
         const lastName = this.lastNameInput.current.input.value;
-        const name = '${firstName} ${lastName}'
         const email = this.emailInput.current.input.value;
         const password = this.passwordInput.current.input.value;
         const confPass = this.confPassInput.current.input.value;
@@ -61,30 +61,31 @@ class Home extends Component {
         if (password === confPass) {
             if (firstName && lastName && email && password) {
             const body = {
+                firstName,
+                lastName,
                 email,
-                password,
-                name
+                password
             };
             console.log(body);
-            fetch('/api/register', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
-            })
-                .then(res => res.json())
-                .then(json => {
-                    if (json.success) {
-                        message.success('Registered successfully');
-                        this.login();
-                    } else {
-                        message.error(json.msg);
+            axios.post('http://localhost:4000/register', {
+                fname: body.firstName,
+                lname: body.lastName,
+                email: body.email,
+                password: body.password
+            },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
                 })
-                .catch(console.error);
+                .then(function (response) {
+                console.log(response);
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
             }
+
         }
     }
 
@@ -153,7 +154,7 @@ class Home extends Component {
                         </Col>
                             ) : null }
                         <Col>
-                            <Button className={styles.button} onClick={register ? this.register : this.logIn }>{ register ? 'Register' : 'Login' }</Button>
+                            <Button className={styles.button} onClick={register ? () => this.register() : this.logIn }>{ register ? 'Register' : 'Login' }</Button>
                         </Col>
                     </Row>
                     <br />
