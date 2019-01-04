@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -6,6 +7,7 @@ const morgan = require('morgan');
 const User = require('./models/user');
 const app = express();
 const cors = require('cors');
+const userController = require('./controllers').users;
 
 const PORT = process.env.PORT || 4000;
 
@@ -46,7 +48,10 @@ var sessionChecker = (req, res, next) => {
     }
 };
 //*** add routes ***//
-require('./routes')(app);
+app.post('/register', userController.create);
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../public/index.html'));
+});
 
 //*** Server Start ***///
 app.listen(PORT, error => {
