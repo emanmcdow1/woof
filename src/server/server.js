@@ -46,14 +46,7 @@ var sessionChecker = (req, res, next) => {
     }
 };
 
-//*** Routes ***//
-app.route('/api/login', sessionChecker, (req,res) => {
-
-});
-
-app.route('/api/register', sessionChecker, (req,res) => {
-
-});
+require('./routes')(app);
 
 //*** Server Start ***///
 app.listen(PORT, error => {
