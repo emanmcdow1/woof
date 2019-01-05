@@ -12,11 +12,10 @@ const userController = require('./controllers').users;
 const PORT = process.env.PORT || 4000;
 
 //*** Middleware ***//
-app.use(cors({origin: 'http://localhost:8080'}));/////////////////////////////////////////////////////
+app.use(cors({origin: 'http://localhost:3000'}));/////////////////////////////////////////////////////
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cookieParser());
-
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
     key: 'user_sid',
@@ -48,11 +47,8 @@ var sessionChecker = (req, res, next) => {
     }
 };
 //*** add routes ***//
-app.post('/register', userController.create);
-app.get('/users', userController.list);
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../public/index.html'));
-});
+require('./routes')(app);
+
 
 //*** Server Start ***///
 app.listen(PORT, error => {

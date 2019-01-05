@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-    }, {
+    }, /*{
         hooks: {
             beforeCreate: (user) => {
                 const salt = bcrypt.genSaltSync()
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
                 return bcrypt.compareSync(password, this.password)
             }
         },
-    }, {})
+    },*/ {})
     User.associate = function(models) {
     // associations can be defined here
     }
