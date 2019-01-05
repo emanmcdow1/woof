@@ -12,7 +12,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            auth: false
+            auth: false,
+            withOnLogin: () => null
         };
         this.router = React.createRef();
     }
@@ -23,10 +24,20 @@ class App extends Component {
             duration: 5,
             maxCount: 1
         });
+        const onRedirect = () => {
+            message.error('You must log in to view that page')
+        };
+        const onLogin = () => {
+            this.setState({ auth: true });
+            this.router.current.history.push('/dashboard');
+        };
+        this.setState({ withOnLogin: () => <Home onLogin={onLogin} /> })
+
+
     }
 
     render() {
-        const { auth } = this.state;
+        const { auth, withOnLogin } = this.state;
         const clearCookie = () => {
             document.cookie = 'session=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
             this.setState({ auth: true });
@@ -38,7 +49,7 @@ class App extends Component {
                 <Layout style={{height: '100%'}}>
                     <Content style={{height: '100%'}}>
                         <Switch>
-                            <Route exact path="/" component={Home} />
+                            <Route exact path="/" component={withOnLogin} />
                             <Route path="/dashboard" component={Dashboard} />
                         </Switch>
                     </Content>

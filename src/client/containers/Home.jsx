@@ -51,12 +51,13 @@ class Home extends Component {
                 })
                 .then(result => {
                     const res = result.data;
+                    console.log(res);
                     if (res.success) {
                         if (!register) message.success('Logged in successfully');
                         /*const date = new Date((new Date()).getTime() + (60 * 60 * 1000));
-                        document.cookie = 'session=user:${JSON.stringify(json.user)};expires=${date.toUTCString()};path=/';
+                        document.cookie = 'session=user:${JSON.stringify(json.user)};expires=${date.toUTCString()};path=/';*/
                         const { onLogin } = this.props;
-                        onLogin();*/
+                        onLogin();
                     } else {
                         message.error('Unsuccessful');
                     }
@@ -94,12 +95,16 @@ class Home extends Component {
                 })
                 .then(function (response) {
                 console.log(response);
+                message.success('Registered successfully!')
                 })
                 .catch(function (error) {
                     console.log(error);
+                    message.success('You have already registered');
                 })
             }
 
+        } else {
+            message.error('Passwords do not match')
         }
     }
 
