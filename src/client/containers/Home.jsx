@@ -73,6 +73,8 @@ class Home extends Component {
         const password = this.passwordInput.current.input.value;
         const confPass = this.confPassInput.current.input.value;
 
+        const { onLogin } = this.props;
+
         if (password === confPass) {
             if (firstName && lastName && email && password) {
             const body = {
@@ -95,7 +97,8 @@ class Home extends Component {
                 })
                 .then(function (response) {
                 console.log(response);
-                message.success('Registered successfully!')
+                message.success('Registered successfully!');
+                onLogin();
                 })
                 .catch(function (error) {
                     console.log(error);

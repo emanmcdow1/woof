@@ -6,6 +6,7 @@ module.exports = function routes(app) {
     app.post('/login', userController.login);
     app.get('/user/:email', userController.findUser);
     app.get('/users', userController.list);
+    app.get('/delete/:userId', userController.destroy);
     app.get('/*', (req, res) => {
         res.sendFile(path.join(__dirname, '../../public/index.html'));
     });
