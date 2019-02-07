@@ -4,14 +4,7 @@ import { Tree, Menu, Dropdown, Modal, Icon } from 'antd'
 const DirectoryTree = Tree.DirectoryTree;
 const { TreeNode } = Tree;
 const MenuItemGroup = Menu.ItemGroup;
-const files = [
 
-        {"type":"file","name":"Dashboard.css"},
-        {"type":"file","name":"Dashboard.jsx"},
-        {"type":"file","name":"Home.css"},
-        {"type":"file","name":"Home.jsx"}
-
-]
 const filetree = [
   {"type":"directory","name":"src/server","contents":[
     {"type":"directory","name":"config","contents":[
