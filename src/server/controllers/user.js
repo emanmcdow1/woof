@@ -71,6 +71,15 @@ module.exports = {
     getTree(req, res){
         return User
           .findById(req.params.userId)
-          .directory
+          .then(user => {
+            exec(`tree ${user.directory} -J --noreport`, (error, stdout, stderr) => {
+              if(error){
+                return res.status(400).send(error);
+              }
+              console.log(user.directory);
+              return res.status(200).send(stdout);
+            });
+          })
+          .catch(error => res.status(400).send(error));
     }
 }

@@ -33,22 +33,20 @@ module.exports = (sequelize, DataTypes) => {
         },
     }, {
         hooks: {
-            beforeCreate: (user) => {
+            beforeSave: (user) => {
                 const salt = bcrypt.genSaltSync()
                 user.password = bcrypt.hashSync(user.password, salt)
-            },
-            afterCreate: (user) => {
-              user.directory = path.join(abspath, user.id.toString());
-              exec(`mkdir ${user.directory}`, (error, stdout, stderr) => {
-                if(error){
-                  console.error(`exec error: ${error}`);
-                  return;
-                }
-                console.log(`stdout: ${stdout}`);
-                console.log(`stderr: ${stderr}`);
+                user.directory = path.join(abspath, user.email);
+                exec(`mkdir ${user.directory}`, (error, stdout, stderr) => {
+                  if(error){
+                    console.error(`exec error: ${error}`);
+                    return;
+                  }
+                  console.log(`stdout: ${stdout}`);
+                  console.log(`stderr: ${stderr}`);
 
-              });
-            }
+                });
+            },
         },
         instanceMethods: {
             validPassword: function(password) {

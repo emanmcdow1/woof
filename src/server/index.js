@@ -50,7 +50,7 @@ var sessionChecker = (req, res, next) => {
 //*** add routes ***//
 app.post('/register', userController.create);
 app.get('/users', userController.list);
-app.get('/dashboard/:user', userController.getTree);
+app.get('/dashboard/:userId', userController.getTree);
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
