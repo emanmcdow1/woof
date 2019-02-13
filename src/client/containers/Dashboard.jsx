@@ -1,34 +1,21 @@
 import React, { Component } from 'react'
 import { Tree, Menu, Dropdown, Modal, Icon } from 'antd'
+const axios = require('axios');
 
 const DirectoryTree = Tree.DirectoryTree;
 const { TreeNode } = Tree;
 const MenuItemGroup = Menu.ItemGroup;
-
-const filetree = [
-  {"type":"directory","name":"src/server","contents":[
-    {"type":"directory","name":"config","contents":[
-      {"type":"file","name":"config.json"}
-    ]},
-    {"type":"directory","name":"controllers","contents":[
-      {"type":"file","name":"index.js"},
-      {"type":"file","name":"user.js"}
-    ]},
-    {"type":"file","name":"index.js"},
-    {"type":"directory","name":"migrations","contents":[
-      {"type":"file","name":"20181231050857-create-user.js"}
-    ]},
-    {"type":"directory","name":"models","contents":[
-      {"type":"file","name":"index.js"},
-      {"type":"file","name":"user.js"}
-    ]},
-    {"type":"file","name":"routes.js"}
-  ]},
-]
-
+/*
+async function fileTree(){
+  try{
+    return await axios.get('http://localhost:4000/dashboard/31');
+  } catch(error){
+    console.error(error);
+  }
+}
+*/
 const strng = "poop/butt"
 console.log(strng);
-
 
 
 function treeMap(branch){
@@ -56,6 +43,23 @@ function treeMap(branch){
 class Dashboard extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+          filetree: [],
+        }
+    }
+
+    componentDidMount(){
+      this.getTree();
+    }
+
+    getTree(){
+      axios.get('http://localhost:4000/dashboard/31')
+     .then(response => {
+       this.setState({
+         filetree: response.data
+       });
+     })
+     .catch((err) => {console.log(err)})
     }
 
 
@@ -90,7 +94,7 @@ class Dashboard extends Component {
               onExpand={this.onExpand}
               className={this.dashboard}
             >
-              {treeMap(filetree)}
+              {treeMap(this.state.filetree)}
             </DirectoryTree>
           )
         }else if(this.state.current === 'settings'){

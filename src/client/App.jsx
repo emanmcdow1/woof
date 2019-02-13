@@ -69,7 +69,7 @@ class App extends Component {
                 <Layout style={{height: '100%'}}>
                     <Content style={{height: '100%'}}>
                         <Switch>
-                            <Route exact path="/" component={Home} />
+                            <Route exact path="/" component={Dashboard} />
                             <Route path="/dashboard" component={Dashboard} />
                         </Switch>
                     </Content>
