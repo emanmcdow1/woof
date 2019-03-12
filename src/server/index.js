@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const morgan = require('morgan');
 const User = require('./models/user');
+const File = require('./models/file');
 const app = express();
 const cors = require('cors');
 const userController = require('./controllers').users;

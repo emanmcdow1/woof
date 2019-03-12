@@ -1,25 +1,5 @@
 const User = require('../models').User
 const { exec } = require('child_process');
-/*const filetree = [
-  {"type":"directory","name":"src/server","contents":[
-    {"type":"directory","name":"config","contents":[
-      {"type":"file","name":"config.json"}
-    ]},
-    {"type":"directory","name":"controllers","contents":[
-      {"type":"file","name":"index.js"},
-      {"type":"file","name":"user.js"}
-    ]},
-    {"type":"file","name":"index.js"},
-    {"type":"directory","name":"migrations","contents":[
-      {"type":"file","name":"20181231050857-create-user.js"}
-    ]},
-    {"type":"directory","name":"models","contents":[
-      {"type":"file","name":"index.js"},
-      {"type":"file","name":"user.js"}
-    ]},
-    {"type":"file","name":"routes.js"}
-  ]},
-]*/
 
 module.exports = {
     create(req, res) {
@@ -81,5 +61,6 @@ module.exports = {
             });
           })
           .catch(error => res.status(400).send(error));
-    }
+    },
+
 }
