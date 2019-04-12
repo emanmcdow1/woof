@@ -11,19 +11,16 @@ module.exports = {
     */
     return queryInterface.createTable('Files',{
       id:{
-        type: Sequelize.INTEGER,
+        allowNull: false,
         primaryKey: true,
-        autoIncrement: true,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       name:{
         type: Sequelize.STRING
       },
       location:{
         type: Sequelize.STRING
-      },
-      userId:{
-        type: Sequelize.INTEGER,
-        allowNull: false,
       },
       extension:{
         type: Sequelize.STRING,
