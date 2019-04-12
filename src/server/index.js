@@ -9,6 +9,7 @@ const File = require('./models/file');
 const app = express();
 const cors = require('cors');
 const userController = require('./controllers').users;
+const fileController = require('./controllers').files;
 const chokidar = require('chokidar');
 const watcher = chokidar.watch('./');
 
@@ -55,6 +56,8 @@ app.post('/register', userController.create);
 app.get('/users', userController.list);
 app.get('/users/:userId', userController.retrieve)
 app.get('/dashboard/:userId', userController.getTree);
+app.get('/dashboard', fileController.findById);
+app.post('/api/create', fileController.create);
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
@@ -67,6 +70,24 @@ watcher.on('ready', () => {
   });
 });
 
+//*** File updater ***/
+/*
+function treeMap(branch){
+  return (branch.map((tree) => {
+    if(tree.type === "directory" && tree.type != "report"){
+      fileController.findOrCreate([{name: tree.name, userId: req.body.userId}]);
+      treeMap(tree.contents);
+    }
+    else if(tree.type != "report"){
+      fileController.findOrCreate([{name: tree.name, userId: req.body.userId}]);
+    }
+  }));
+};
+
+app.use((req, res, next) => {
+  treeMap(userController.getTree)
+}
+*/
 //*** Server Start ***///
 app.listen(PORT, error => {
     if (!error) {

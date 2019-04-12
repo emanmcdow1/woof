@@ -19,6 +19,16 @@ module.exports = {
       lname: 'admin',
       email: 'admin@admin.com',
       password: 'adm1n'
+    },{
+      fname: 'admin2',
+      lname: 'admin2',
+      email: 'admin2@admin.com',
+      password: 'adm2n'
+    },{
+      fname: 'admin3',
+      lname: 'admin3',
+      email: 'admin3@admin.com',
+      password: 'adm3n'
     }])
   },
 
