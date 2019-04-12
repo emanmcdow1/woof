@@ -7,16 +7,20 @@ const { exec } = require('child_process');
 
 module.exports = (sequelize, DataTypes) => {
     const File = sequelize.define('File', {
+
         name:{
           type: DataTypes.STRING,
         },
         location:{
           type: DataTypes.STRING,
         },
-        directory:{
-            type: DataTypes.STRING,
-            unique: true
+        userId:{
+          type: DataTypes.INTEGER,
+          allowNull: false;
         },
+        extension:{
+          type: DataTypes.STRING;
+        }
     },/* {
         hooks: {
             beforeSave: () => {
@@ -27,5 +31,11 @@ module.exports = (sequelize, DataTypes) => {
 
         },
     }, */{})
+    File.associate = function(models) {
+      File.belongsTo(models.User, {
+        as: 'user',
+        foreignKey: "fileId"
+      })
+    }
     return File
 }

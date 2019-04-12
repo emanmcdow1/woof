@@ -7,6 +7,11 @@ const { exec } = require('child_process');
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
+        id:{
+          type: DataTypes.INTEGER,
+          primaryKey: true,
+          autoIncrement: true,
+        }
         fname:{
             type: DataTypes.STRING,
             allowNull: false,
@@ -56,7 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {})
     User.associate = function(models) {
       User.hasMany(models.File, {
-        foreignKey: 'owner',
+        foreignKey: 'userId',
+        as: 'file'
       });
     }
     return User

@@ -9,6 +9,8 @@ const File = require('./models/file');
 const app = express();
 const cors = require('cors');
 const userController = require('./controllers').users;
+const chokidar = require('chokidar');
+const watcher = chokidar.watch('./');
 
 const PORT = process.env.PORT || 4000;
 
@@ -57,6 +59,13 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
 
+//*** File Watcher ***//
+watcher.add('*');
+watcher.on('ready', () => {
+  watcher.on('all', (path) => {
+     console.log('File', path, 'has been changed')
+  });
+});
 
 //*** Server Start ***///
 app.listen(PORT, error => {
