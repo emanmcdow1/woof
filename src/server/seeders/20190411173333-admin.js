@@ -1,5 +1,6 @@
 'use strict';
 const User = require('../models').User;
+const uuidv4 = require('uuid/v4');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -18,17 +19,20 @@ module.exports = {
       fname: 'admin',
       lname: 'admin',
       email: 'admin@admin.com',
-      password: 'adm1n'
+      password: 'adm1n',
+      id: uuidv4(),
     },{
       fname: 'admin2',
       lname: 'admin2',
       email: 'admin2@admin.com',
-      password: 'adm2n'
+      password: 'adm2n',
+      id: uuidv4()
     },{
       fname: 'admin3',
       lname: 'admin3',
       email: 'admin3@admin.com',
-      password: 'adm3n'
+      password: 'adm3n',
+      id: uuidv4(),
     }])
   },
 

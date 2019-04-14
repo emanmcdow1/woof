@@ -1,5 +1,35 @@
 const User = require('../models').User;
 const { exec } = require('child_process');
+const File = require('../models').File;
+const fileController = require('../controllers').files
+
+function treeUpdate(branch, user){
+  return (branch.map((tree) => {
+    if(tree.type === "directory" && tree.type != "report"){
+      treeUpdate(tree.contents, user)
+      console.log("Yeet")
+      File.findOrCreate({
+        where:{
+          userId: user.id,
+          location: tree.name
+        }
+      })
+    }
+    else if(tree.type != "report"){
+      console.log("Yeet")
+      File.findOrCreate({
+        where:{
+          userId: user.id,
+          location: tree.name
+        },
+        defaults:{
+          userId: user.id,
+          location: tree.name
+        }
+      })
+    }
+  }));
+};
 
 module.exports = {
     create(req, res) {
@@ -62,4 +92,18 @@ module.exports = {
           })
           .catch(error => res.status(400).send(error));
     },
+    updateFiles(req,res){
+      return User
+      .findById(req.body.userId)
+      .then((user) => {
+        exec(`tree ${user.directory} -Jf --noreport`, (error, stdout, stderr) => {
+          if(error){
+            return res.status(400).send(error);
+          }
+          var branch = JSON.parse(stdout)
+          treeUpdate(branch, user);
+          return res.status(200).send();
+        })
+      })
+    }
 }
