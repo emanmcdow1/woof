@@ -105,5 +105,20 @@ module.exports = {
           return res.status(200).send();
         })
       })
+    },
+    verify(req, res){
+      return User
+      .findOne({where:
+        email: req.body.email
+      })
+      .then(user => {
+        if(user.validPassword(req.body.password)){
+          return res.status(200).send({success: 'true'})
+        }else{
+          return res.status(401).send()
+        }
+      })
+      .catch(error => res.status(404).send(error))
+
     }
 }

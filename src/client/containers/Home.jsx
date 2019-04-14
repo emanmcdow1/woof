@@ -19,35 +19,33 @@ class Home extends Component {
         this.confPassInput = React.createRef();
     }
 
-    login() {
+    logIn() {
         const { register } = this.state;
-        const email = this.emailInput.current.input.value;
-        const password = this.passwordInput.current.input.value;
+        const emal = this.emailInput.current.input.value;
+        const passwrd = this.passwordInput.current.input.value;
         if (username && password) {
-            fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify( {
-                    email,
-                    password
-                })
-            })
-                .then(res => res.json())
-                .then(json => {
-                    if (json.success) {
-                        if (!register) message.success('Logged in successfully');
-                        const date = new Date((new Date()).getTime() + (60 * 60 * 1000));
-                        document.cookie = 'session=user:${JSON.stringify(json.user)};expires=${date.toUTCString()};path=/';
-                        const { onLogin } = this.props;
-                        onLogin();
-                    } else {
-                        message.error(json.msg);
-                    }
-                })
-                .catch(console.error);
+          axios.post('http://localhost:4000/login', {
+              email: emal,
+              password: passwrd
+          }),
+          {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(res => res.json())
+          .then(json => {
+              if (json.success) {
+                  if (!register) message.success('Logged in successfully');
+                  const date = new Date((new Date()).getTime() + (60 * 60 * 1000));
+                  document.cookie = 'session=user:${JSON.stringify(json.user)};expires=${date.toUTCString()};path=/';
+                  const { onLogin } = this.props;
+                  onLogin();
+              } else {
+                  message.error(json.msg);
+              }
+          })
+          .catch(console.error);
         }
     }
 
@@ -73,17 +71,17 @@ class Home extends Component {
                 email: body.email,
                 password: body.password
             },
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(function (response) {
-                console.log(response);
-                })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(function (response) {
+              console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
             }
 
         }
@@ -154,7 +152,7 @@ class Home extends Component {
                         </Col>
                             ) : null }
                         <Col>
-                            <Button className={styles.button} onClick={register ? () => this.register() : this.logIn }>{ register ? 'Register' : 'Login' }</Button>
+                            <Button className={styles.button} onClick={register ? () => this.register() : this.logIn() }>{ register ? 'Register' : 'Login' }</Button>
                         </Col>
                     </Row>
                     <br />

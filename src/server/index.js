@@ -59,6 +59,7 @@ app.get('/dashboard/:userId', userController.getTree);
 app.get('/dashboard', fileController.findById);
 app.post('/update', userController.updateFiles);
 app.post('/api/create', fileController.create);
+app.post('/login', userController.verify);
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '../../public/index.html'));
 });
